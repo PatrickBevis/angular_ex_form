@@ -1,1 +1,32 @@
-<p>user-form works!</p>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div class="bg-white">
+    Name: <input type="text" formControlName="name" /><span class="required">*</span>
+    @if (name.invalid && (name.dirty || name.touched)) {
+      @if (name.errors?.['minlength']) {
+        <div class="text-red-500"> Min letters: 3</div>
+      }
+      @if (name.errors?.['required']) {
+        <div class="text-red-500"> Name is required </div>
+      }
+    }
+     Email: <input type="text" formControlName="email" /><span class="required">*</span>
+    @if (email.invalid && (email.dirty || email.touched)) {
+      @if (email.errors?.['email']) {
+        <div class="text-red-500"> Invalid email</div>
+      }
+      @if (email.errors?.['required']) {
+        <div class="text-red-500"> Name is required </div>
+      }
+    }
+    Age: <input type="text" formControlName="age" /><span class="required">*</span>
+    @if (age.invalid && (age.dirty || age.touched)) {
+      @if (age.errors?.['min']) {
+        <div class="text-red-500"> Invalid age</div>
+      }
+      @if (age.errors?.['required']) {
+        <div class="text-red-500"> Age is required </div>
+      }
+    }
+    <button type="submit"[disabled]="userForm.invalid">Create</button>
+  </div>
+</form>

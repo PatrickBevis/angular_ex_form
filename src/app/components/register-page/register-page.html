@@ -1,1 +1,6 @@
-<p>register-page works!</p>
+<app-user-form (onUserAdded)="onRegister($event)"></app-user-form>
+@for (item of users; track $index) {
+  <app-user-card [user]="item" (deleteUser)="deleteUser($event)"></app-user-card>
+}@empty {
+    <p>No user </p>
+}
