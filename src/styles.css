@@ -11,11 +11,11 @@ input{
     @apply
         bg-white border 
 }
-button{
+/* .d-button{
     @apply
-        bg-gray-300 p-3 border rounded-2xl
-}
+        bg-gray-300 p-3 border rounded-2xl hover:cursor-pointer
+} */
 .required{
     @apply
-        text-red-600
+       text-red-500 text-sm mt-1
 }

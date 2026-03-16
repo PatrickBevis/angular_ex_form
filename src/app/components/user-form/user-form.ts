@@ -14,9 +14,10 @@ import {
   styleUrl: './user-form.css',
 })
 export class UserForm {
+
+
   formBuilder = inject(FormBuilder);
 
-  users: User[] = [];
 
   userForm: FormGroup = this.formBuilder.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
@@ -24,49 +25,45 @@ export class UserForm {
     age: [0, [Validators.required, Validators.min(18)]],
   });
 
+  
+
   get name() {
-  return this.userForm.get('name')!;
-}
+    return this.userForm.get('name')!;
+  }
 
-get email() {
-  return this.userForm.get('email')!;
-}
+  get email() {
+    return this.userForm.get('email')!;
+  }
 
-get age() {
-  return this.userForm.get('age')!;
-}
+  get age() {
+    return this.userForm.get('age')!;
+  }
+onAddUser: EventEmitter<any> = new EventEmitter();
 
-@Output()
+ @Output()
+  onUserAdded = new EventEmitter<User>();
 
   submitted: boolean = false;
 
-  createUser: EventEmitter<any> = new EventEmitter();
-
-  AddUser() {
-    this.createUser.emit(this.userForm.value);
-    this.userForm.reset();
-    this.submitted;
-  }
-private resetForm(): void {
+  private resetForm(): void {
     this.userForm.reset();
     this.submitted = false;
   }
-  // onSubmit() {
-  //   this.submitted = true;
-  //   if (this.userForm.invalid) {
-  //     return false;
-  //   } else {
-  //     this.AddUser();
-  //     return true;
-  //   }
-  // }
-   public onSubmit(): void {
+
+  public onSubmit(): void {
     this.submitted = true;
     if (this.userForm.valid) {
-      this.createUser.emit(this.userForm.value);
+      const user: User = {
+        id: Number(),
+        name: this.userForm.value.name,
+        email: this.userForm.value.email,
+        age: Number(this.userForm.value.age),
+      };
+      this.onUserAdded.emit(user);
       this.resetForm();
     } else {
       console.log('Formulaire invalide');
     }
   }
+  
 }

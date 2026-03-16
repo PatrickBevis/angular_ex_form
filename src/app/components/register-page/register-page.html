@@ -1,6 +1,30 @@
-<app-user-form (onUserAdded)="onRegister($event)"></app-user-form>
-@for (item of users; track $index) {
-  <app-user-card [user]="item" (deleteUser)="deleteUser($event)"></app-user-card>
-}@empty {
-    <p>No user </p>
-}
+<div class="min-h-screen bg-gray-100 p-10">
+
+  <!-- Form -->
+  <div class="flex justify-center mb-10">
+    <app-user-form (onUserAdded)="onRegister($event)"></app-user-form>
+  </div>
+
+  <!-- Users list -->
+  <div class="max-w-5xl mx-auto">
+
+    @for (item of users; track item.id) {
+
+      <div class="mb-4">
+        <app-user-card
+          [user]="item"
+          (deleteUser)="deleteUser($event)">
+        </app-user-card>
+      </div>
+
+    } @empty {
+
+      <p class="text-center text-gray-500 text-lg">
+        No user
+      </p>
+
+    }
+
+  </div>
+
+</div>
